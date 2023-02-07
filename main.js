@@ -39,7 +39,7 @@ const main = async (filePath) =>
             const email = argv.email;
 
             //Checking if email exists, if not then the object will not have email as attribute
-            if(email != null){
+            if(email == null){
                 console.log('Missing email, continuing...');
             }else if(!valid.isEmail(email)){ //Checking email format, if invalid then app exited.
                 console.log('Invalid email format');
