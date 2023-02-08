@@ -16,5 +16,6 @@ if(!fs.existsSync(filePath)){
     console.log('File not found, new file created.');
 }
 
+
 //main app
 main.main(filePath);

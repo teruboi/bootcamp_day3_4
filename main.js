@@ -9,6 +9,8 @@ const func = require('./functions');
 //Main code for the app
 const main = async (filePath) =>
 {
+    
+    const file = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
     //Adding new CLI command using yargs for the new contact
     yargs.command({
         command: 'add',
@@ -35,6 +37,7 @@ const main = async (filePath) =>
         //Mainly the validation and inputing data to create object
         //then pushed to .json file
         handler(argv){
+            
             const name = argv.name;
             const email = argv.email;
 
@@ -55,7 +58,8 @@ const main = async (filePath) =>
             console.log(`\nName: ${name}\nEmail Address: ${email}\nPhone Number: ${phone}`);
 
             //Saving data to .json file
-            func.save(name, email, phone, filePath);
+            fs.writeFileSync(filePath, func.newContact(name, email, phone, file));
+            console.log('Data saved.');
         }
     });
     
@@ -70,9 +74,17 @@ const main = async (filePath) =>
             }
         },
         handler(argv){
-            func.contactDetail(argv.name, filePath)
+            func.contactDetail(argv.name, file);
         }
     });
+
+    yargs.command({
+        command: 'list',
+        describe: 'show contact list from database',
+        handler(){
+            func.list(file);
+        }
+    })
     yargs.parse();
     process.exit(0);
 
