@@ -99,6 +99,38 @@ const main = async (filePath) =>
             fs.writeFileSync(filePath, func.deleteContact(argv.name, file));
         }
     })
+
+    yargs.command({
+        command: 'update',
+        describe: 'make changes on one of the contact',
+        builder: {
+            oldname: {
+                describe: 'Old Contact Name',
+                demandOption: true,
+                type: 'string'
+            },
+            newname: {
+                describe: 'New Contact Name',
+                demandOption: false,
+                type: 'string'
+            },
+            newemail: {
+                describe: 'new contact email',
+                demandOption: false,
+                type: 'string'
+            },
+            newmobile: {
+                describe: 'new contact phone number',
+                demandOption: false,
+                type: 'string'
+            }
+        },
+        handler(argv) {
+            
+            fs.writeFileSync(filePath, func.updateContact(argv.oldname, argv.newname, argv.newemail, argv.newmobile, file));
+        }
+    })
+    
     yargs.parse();
     process.exit(0);
 

@@ -37,19 +37,6 @@ function contactDetail(search, file) {
         };
         process.exit(0);
     }
-
-    // for (let i = 0; i < file.length; i++) {
-    //    if(file[i].name.toLowerCase() == search.toLowerCase()){
-    //         if(file[i].email==null){
-    //             console.log(`${file[i].name}\n${file[i].phone}`);
-    //         }else {
-    //             console.log(`${file[i].name}\n${file[i].email}\n${file[i].phone}`);
-    //         };
-    //         process.exit(0);
-    //     }
-    // }
-
-    // console.log("Contact not found, please add first using\nnode app add command");
 }
 
 function list(file) {
@@ -68,4 +55,31 @@ const deleteContact = (name, file) => {
     return JSON.stringify(newData);
 }
 
-module.exports = { newContact, contactDetail, list, deleteContact };
+const updateContact = (oldname, newname, newemail, newmobile, file) => {
+    const target = (e) => e.name.toLowerCase() == oldname;
+    const targetIndex = file.findIndex(target);
+
+    console.log(`Before:\n${JSON.stringify(file[targetIndex])}`);
+    if (newname == null) {
+        newname = file[targetIndex].name;
+    };
+    if (newemail == null) {
+        newemail = file[targetIndex].email;
+    };
+    if (newmobile == null) {
+        newmobile = file[targetIndex].phone;
+    };
+
+    const updatedData = JSON.parse(newContact(newname, newemail, newmobile, JSON.parse(deleteContact(oldname, file))));
+
+    // if(newemail==null){
+    //     updatedData.push({name: newname, phone: newmobile});
+    // }else {
+    //     updatedData.push({name: newname, email: newemail, phone: newmobile});
+    // }
+    console.log(`After:\n${JSON.stringify(updatedData[updatedData.length - 1])}`);
+
+    return JSON.stringify(updatedData);
+}
+
+module.exports = { newContact, contactDetail, list, deleteContact, updateContact };
