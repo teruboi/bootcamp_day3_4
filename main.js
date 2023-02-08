@@ -9,7 +9,6 @@ const func = require('./functions');
 //Main code for the app
 const main = async (filePath) =>
 {
-    
     const file = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
     //Adding new CLI command using yargs for the new contact
     yargs.command({
@@ -83,6 +82,21 @@ const main = async (filePath) =>
         describe: 'show contact list from database',
         handler(){
             func.list(file);
+        }
+    })
+
+    yargs.command({
+        command: 'delete',
+        describe: 'delete contact from list',
+        builder: {
+            name: {
+                describe: 'Contact Name',
+                demandOption: true,
+                type: 'string'
+            }
+        },
+        handler(argv){
+            fs.writeFileSync(filePath, func.deleteContact(argv.name, file));
         }
     })
     yargs.parse();
