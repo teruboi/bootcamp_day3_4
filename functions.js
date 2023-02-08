@@ -41,11 +41,9 @@ function contactDetail(search, file) {
 
 function list(file) {
     console.log('Contact List :\n');
-    let i = 1;
     
-    file.forEach(e => {
-        console.log(`${i}. ${e.name} - ${e.phone}`);
-        i++;
+    file.forEach((e, i) => {
+        console.log(`${i+1}. ${e.name} - ${e.phone}`);
     });
 }
 
