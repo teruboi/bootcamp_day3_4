@@ -62,6 +62,7 @@ const main = async (filePath) =>
         }
     });
     
+    //Adding CLI command to get a specific data from database
     yargs.command({
         command: 'detail',
         describe: 'show contact detail',
@@ -77,6 +78,7 @@ const main = async (filePath) =>
         }
     });
 
+    //Adding CLI command to get all data from database
     yargs.command({
         command: 'list',
         describe: 'show contact list from database',
@@ -85,6 +87,7 @@ const main = async (filePath) =>
         }
     })
 
+    //Adding CLI command to delete specific data from database
     yargs.command({
         command: 'delete',
         describe: 'delete contact from list',
@@ -100,6 +103,7 @@ const main = async (filePath) =>
         }
     })
 
+    //Adding CLI command to make changes or update the data.
     yargs.command({
         command: 'update',
         describe: 'make changes on one of the contact',
