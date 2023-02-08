@@ -59,6 +59,32 @@ const main = async (filePath) =>
         }
     });
     
+    yargs.command({
+        command: 'detail',
+        describe: 'show contact detail',
+        builder: {
+            name: {
+                describe: 'Contact Name',
+                demandOption: true,
+                type: 'string'
+            }
+        },
+        handler(argv){
+            const search = argv.name;
+            const obj = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+            for (let i = 0; i < obj.length; i++) {
+                if(obj[i].name.toLowerCase() == search.toLowerCase()){
+                    if(obj[i].email==null){
+                        console.log(`${obj[i].name}\n${obj[i].phone}`);
+                    }else {
+                        console.log(`${obj[i].name}\n${obj[i].email}\n${obj[i].phone}`);
+                    };
+                    break;
+                }
+            }
+        }
+    });
     yargs.parse();
     process.exit(0);
 
