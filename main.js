@@ -70,19 +70,7 @@ const main = async (filePath) =>
             }
         },
         handler(argv){
-            const search = argv.name;
-            const obj = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-
-            for (let i = 0; i < obj.length; i++) {
-                if(obj[i].name.toLowerCase() == search.toLowerCase()){
-                    if(obj[i].email==null){
-                        console.log(`${obj[i].name}\n${obj[i].phone}`);
-                    }else {
-                        console.log(`${obj[i].name}\n${obj[i].email}\n${obj[i].phone}`);
-                    };
-                    break;
-                }
-            }
+            func.contactDetail(argv.name, filePath)
         }
     });
     yargs.parse();

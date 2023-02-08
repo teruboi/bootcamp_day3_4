@@ -30,4 +30,21 @@ function save(name, email, phone, file) {
     console.log("\nData saved");
 }
 
-module.exports = { save };
+function contactDetail(search, file) {
+    const obj = JSON.parse(fs.readFileSync(file, 'utf-8'));
+
+    for (let i = 0; i < obj.length; i++) {
+       if(obj[i].name.toLowerCase() == search.toLowerCase()){
+            if(obj[i].email==null){
+                console.log(`${obj[i].name}\n${obj[i].phone}`);
+            }else {
+                console.log(`${obj[i].name}\n${obj[i].email}\n${obj[i].phone}`);
+            };
+            process.exit(0);
+        }
+    }
+
+    console.log("Contact not found, please add first using\nnode app add command");
+}
+
+module.exports = { save, contactDetail };
